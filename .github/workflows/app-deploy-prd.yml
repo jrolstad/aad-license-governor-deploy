@@ -1,0 +1,46 @@
+name: app-deploy-prd
+env:
+  API_PUBLISH_DIR: aad-license-governor/src/AzureAdLicenseGovernor.Api/bin/Release/net6.0/publish
+  API_FUNCTION_NAME: aadlicense-api-prd
+  WORKER_FUNCTION_NAME: aadlicense-worker-prd
+  WORKER_PUBLISH_DIR: aad-license-governor/src/AzureAdLicenseGovernor.Worker/bin/Release/net6.0/publish
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./src
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Get Submodules
+      uses: snickerbockers/submodules-init@v4
+
+    - name: Publish app
+      run: dotnet publish -c Release
+
+    - name: Service Principal Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Deploy API Azure Function
+      uses: Azure/functions-action@v1
+      id: api
+      with:
+        app-name: ${{ env.API_FUNCTION_NAME }}
+        package: ${{ env.API_PUBLISH_DIR }}
+
+    - name: Deploy Worker Azure Function
+      uses: Azure/functions-action@v1
+      id: worker
+      with:
+        app-name: ${{ env.WORKER_FUNCTION_NAME }}
+        package: ${{ env.WORKER_PUBLISH_DIR }}
+
+    - name: Service Principal Logout
+      run: az logout
