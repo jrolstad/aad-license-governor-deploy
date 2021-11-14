@@ -1,4 +1,4 @@
-name: deploy-prd
+name: infra-deploy-prd
 
 on:
   workflow_dispatch:
