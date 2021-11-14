@@ -28,9 +28,11 @@ jobs:
 
     - name: Terraform Init
       run: terraform init -input=false -backend-config="resource_group_name=aadlicense-tf" -backend-config="storage_account_name=aadlicensetfstate" -backend-config="container_name=prd" -backend-config="key=prd.terraform.tfstate"
-
+      working-directory: ./aad-license-governor-infra/src/terraform/Azure
+      
     - name: Terraform Validate
       run: terraform validate
+      working-directory: ./aad-license-governor-infra/src/terraform/Azure
 
     - name: Terraform Apply
       run: terraform apply -input=false -auto-approve -no-color -var="service_name=aadlicense" -var-file="config/base.tfvars" -var="environment=prd"
