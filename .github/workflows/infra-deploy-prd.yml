@@ -12,7 +12,7 @@ jobs:
         shell: bash
     environment: production
     env:
-      ARM_CLIENT_ID: "91f77ba6-fa15-48a8-b947-248659d73176"
+      ARM_CLIENT_ID: "65c49b4f-c5fc-4d87-a7b2-a8896c799c06"
       ARM_CLIENT_SECRET: "${{ secrets.CLIENT_SECRET }}"
       ARM_SUBSCRIPTION_ID: "2d518713-c5a2-4fcb-a600-307c349add12"
       ARM_TENANT_ID: "335776b5-3fba-4122-bcef-84458b1b8201"
