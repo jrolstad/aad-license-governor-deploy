@@ -36,4 +36,4 @@ jobs:
       run: terraform validate
 
     - name: Terraform Apply
-      run: terraform apply -input=false -auto-approve -no-color -var="service_name=aadlicense" -var-file="config/base.tfvars" -var="environment=prd"
+      run: terraform apply -input=false -auto-approve -no-color -var="service_name=aadlicense" -var-file="config/base.tfvars" -var="environment=prd" -var "application_owners=['932944a5-aebe-4735-ade7-5ea13969cb25']"
