@@ -1,0 +1,36 @@
+name: deploy-prd
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./aad-license-governor-infra/src/terraform/Azure
+        shell: bash
+    environment: production
+    env:
+      ARM_CLIENT_ID: "91f77ba6-fa15-48a8-b947-248659d73176"
+      ARM_CLIENT_SECRET: "${{ secrets.CLIENT_SECRET }}"
+      ARM_SUBSCRIPTION_ID: "2d518713-c5a2-4fcb-a600-307c349add12"
+      ARM_TENANT_ID: "335776b5-3fba-4122-bcef-84458b1b8201"
+      ARM_MSI_ENDPOINT: false
+      ARM_USE_MSI: false
+      
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+
+    - name: Terraform Init
+      run: terraform init -input=false -backend-config="resource_group_name=aadlicense-tf" -backend-config="storage_account_name=aadlicensetfstate" -backend-config="container_name=prd" -backend-config="key=prd.terraform.tfstate"
+
+    - name: Terraform Validate
+      run: terraform validate
+
+    - name: Terraform Apply
+      run: terraform apply -input=false -auto-approve -no-color -var="service_name=aadlicense" -var-file="config/base.tfvars" -var="environment=prd"
