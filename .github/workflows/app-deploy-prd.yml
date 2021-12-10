@@ -16,9 +16,11 @@ jobs:
         working-directory: ./aad-license-governor/src
     steps:
     - uses: actions/checkout@v2
+      with:
+        submodules: 'true'
     
     - name: Get Submodules
-      run: git submodule update --init --recursive
+      run: git submodule update --remote
       
     - name: Install .NET 6
       uses: actions/setup-dotnet@v1
