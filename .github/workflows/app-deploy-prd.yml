@@ -21,7 +21,7 @@ jobs:
     
     - name: Git Sumbodule Update
       run: |
-        git pull --recurse-submodules --ff-only
+        git pull --recurse-submodules --rebase-merge
         git submodule update --remote --recursive
       
     - name: Install .NET 6
