@@ -17,11 +17,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        submodules: true
+        submodules: recursive
     
     - name: Git Sumbodule Update
       run: |
-        git pull --recurse-submodules --rebase-merge
+        git pull --recurse-submodules
         git submodule update --remote --recursive
       
     - name: Install .NET 6
