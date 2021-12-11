@@ -17,10 +17,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        submodules: 'true'
+        submodules: true
     
-    - name: Get Submodules
-      run: git submodule update --remote
+    - name: Git Sumbodule Update
+      run: |
+        git pull --recurse-submodules
+        git submodule update --remote --recursive
       
     - name: Install .NET 6
       uses: actions/setup-dotnet@v1
