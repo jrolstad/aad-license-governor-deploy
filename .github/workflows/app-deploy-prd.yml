@@ -20,9 +20,7 @@ jobs:
         submodules: recursive
     
     - name: Git Sumbodule Update
-      run: |
-        git pull --recurse-submodules --no-rebase
-        git submodule update --remote --recursive
+      run: git submodule update --recursive  --remote
       
     - name: Install .NET 6
       uses: actions/setup-dotnet@v1
