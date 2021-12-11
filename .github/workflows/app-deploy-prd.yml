@@ -19,7 +19,7 @@ jobs:
       with:
         submodules: recursive
     
-    - name: Git Sumbodule Update
+    - name: Update Dependent Modules
       run: git submodule update --recursive  --remote
       
     - name: Install .NET 6
