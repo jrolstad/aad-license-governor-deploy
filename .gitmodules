@@ -1,6 +1,8 @@
 [submodule "aad-license-governor"]
 	path = aad-license-governor
 	url = https://github.com/jrolstad/aad-license-governor
+	branch = main
 [submodule "aad-license-governor-infra"]
 	path = aad-license-governor-infra
 	url = https://github.com/jrolstad/aad-license-governor-infra
+	branch = main
